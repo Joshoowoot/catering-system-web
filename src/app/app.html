@@ -1,0 +1,256 @@
+<div class="page-shell">
+  <mat-toolbar class="site-nav" role="navigation">
+    <a class="brand" href="#home" aria-label="Mess Catering home">
+      <span class="brand-mark">MSC</span>
+      <span class="brand-text">{{ title() }}</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary navigation">
+      @for (link of navLinks; track link.section) {
+        <a [href]="'#' + link.section" (click)="scrollToSection(link.section)">
+          {{ link.label }}
+        </a>
+      }
+    </nav>
+
+    <a mat-raised-button class="nav-cta" [routerLink]="'/booking'">Book Now</a>
+  </mat-toolbar>
+
+  @if (!isBookingRoute()) {
+  <main class="page-content">
+    <section id="home" class="hero-section">
+      <div class="hero-copy">
+        <p class="eyebrow">Catering and event equipment in one place</p>
+        <h1>Your Perfect Event, Perfectly Served</h1>
+        <p class="hero-text">
+          From the table to the feast — Mess Catering handles every detail of your event catering and
+          equipment needs.
+        </p>
+        <div class="hero-actions">
+          <a mat-raised-button class="primary-action" href="#packages" (click)="scrollToSection('packages')">
+            Browse Packages
+          </a>
+          <a mat-stroked-button class="secondary-action" href="#about" (click)="scrollToSection('about')">
+            Learn More
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block how-section" aria-labelledby="how-title">
+      <div class="section-heading">
+        <p class="eyebrow">How It Works</p>
+        <h2 id="how-title">Simple from browse to booking</h2>
+      </div>
+
+      <div class="steps-grid">
+        @for (step of steps; track step.title) {
+          <mat-card class="step-card">
+            <div class="step-number">0{{ $index + 1 }}</div>
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.text }}</p>
+          </mat-card>
+        }
+      </div>
+    </section>
+
+    <section id="packages" class="section-block packages-section" aria-labelledby="packages-title">
+      <div class="section-heading">
+        <p class="eyebrow">Packages</p>
+        <h1 id="packages-title">Our Packages</h1>
+      </div>
+
+      <div class="package-grid">
+        @for (package of packages; track package.id) {
+          <mat-card class="package-card" [class.featured]="package.popular">
+            @if (package.popular) {
+              <div class="popular-badge">Most Popular</div>
+            }
+            <div class="package-header">
+              <h3>{{ package.name }}</h3>
+              <span>{{ package.pax }}</span>
+            </div>
+            <p class="package-headline">{{ package.headline }}</p>
+            <p class="package-copy">{{ package.description }}</p>
+
+            <div class="inclusion-list">
+              @for (inclusion of package.inclusions; track inclusion) {
+                <mat-chip-set>
+                  <mat-chip>{{ inclusion }}</mat-chip>
+                </mat-chip-set>
+              }
+            </div>
+
+            <div class="package-footer">
+              <strong>{{ package.price }}</strong>
+              <button mat-flat-button color="primary" [routerLink]="['/booking']" [queryParams]="{ package: package.name, pax: package.pax }">Book This Package</button>
+            </div>
+          </mat-card>
+        }
+      </div>
+    </section>
+
+    <section id="equipment" class="section-block equipment-section" aria-labelledby="equipment-title">
+      <div class="section-heading">
+        <p class="eyebrow">Equipment</p>
+        <h2 id="equipment-title">Everything Your Event Needs</h2>
+      </div>
+
+      <div class="equipment-grid">
+        @for (item of equipment; track item.id) {
+          <mat-card class="equipment-card">
+            <div class="equipment-icon">
+              @if (equipmentIcons[item.icon].startsWith('/')) {
+                <img [src]="equipmentIcons[item.icon]" [alt]="item.name" />
+              } @else {
+                {{ equipmentIcons[item.icon] }}
+              }
+            </div>
+            <h3>{{ item.name }}</h3>
+          </mat-card>
+        }
+      </div>
+    </section>
+
+    <section id="about" class="section-block about-section" aria-labelledby="about-title">
+      <div class="about-copy">
+        <p class="eyebrow">About Mess Catering</p>
+        <h2 id="about-title">Designed for events that need both style and structure</h2>
+        <p>
+          Mess Catering helps clients compare packages, confirm equipment inclusions, and move from
+          discovery to booking without guesswork. The focus is simple: clear choices, polished
+          presentation, and dependable service.
+        </p>
+      </div>
+      <div class="about-points">
+        <div>
+          <strong>Transparent inclusions</strong>
+          <span>See exactly what food and equipment are included before you inquire.</span>
+        </div>
+        <div>
+          <strong>Event-ready styling</strong>
+          <span>Packages are arranged for a clean, coordinated event setup.</span>
+        </div>
+        <div>
+          <strong>Fast booking flow</strong>
+          <span>From package selection to quote request, the path stays simple.</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" class="section-block testimonials-section" aria-labelledby="testimonials-title">
+      <div class="section-heading">
+        <p class="eyebrow">Testimonials</p>
+        <h2 id="testimonials-title">What Our Clients Say</h2>
+      </div>
+
+      <div class="testimonial-grid">
+        @for (testimonial of testimonials; track testimonial.id) {
+          <mat-card class="testimonial-card">
+            <p class="testimonial-quote">“{{ testimonial.quote }}”</p>
+            <div class="testimonial-meta">
+              <strong>{{ testimonial.name }}</strong>
+              <span>{{ testimonial.eventType }}</span>
+            </div>
+          </mat-card>
+        }
+      </div>
+    </section>
+
+  </main>
+  }
+
+  <router-outlet></router-outlet>
+
+  @if (!isBookingRoute()) {
+  <section id="contact" class="booking-section">
+    <div class="booking-form-container">
+      <form class="contact-form">
+        <input type="text" placeholder="Name" required />
+        <div class="form-row">
+          <input type="email" placeholder="Email" required />
+          <input type="tel" placeholder="Mobile Number" required />
+        </div>
+        <div class="form-row">
+          <input type="date" placeholder="Date of Event" required />
+          <input type="number" placeholder="Number of Pax" required />
+        </div>
+        <input type="text" placeholder="What is the Occasion?" />
+        <input type="text" placeholder="Venue of the Event" />
+        <textarea placeholder="Message" rows="6"></textarea>
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
+
+      <div class="contact-info">
+        <div class="contact-header">
+          <h2 class="eyebrow">Contact Us</h2>
+          <h2>Let's Create Memorable Moments Together</h2>
+          <p class="contact-intro">
+            Reach out to Mess Catering today! Known for our catering services, we are ready to become
+            a part of your event whether it be a debut or milestone celebration.
+          </p>
+        </div>
+
+        <div class="locations-list">
+          @for (location of locations; track location.city) {
+            <div class="location-item">
+              <h3>{{ location.city }}</h3>
+              <p class="location-address">{{ location.address }}</p>
+              <div class="location-phones">
+                @for (phone of location.phone; track phone) {
+                  <p class="phone-item">
+                    <span class="phone-icon">☎</span>
+                    {{ phone }}
+                  </p>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <!-- Main Footer Grid -->
+    <div class="footer-grid">
+      <div class="footer-column">
+        <h4>Quick Links</h4>
+        <nav class="footer-links">
+          @for (link of navLinks; track link.section) {
+            <a [href]="'#' + link.section" (click)="scrollToSection(link.section)">{{ link.label }}</a>
+          }
+        </nav>
+      </div>
+
+      <div class="footer-column">
+        <h4>Services</h4>
+        <nav class="footer-links">
+          <a href="#">Wedding Catering</a>
+          <a href="#">Corporate Events</a>
+          <a href="#">Birthday Celebrations</a>
+          <a href="#">Special Occasions</a>
+          <a href="#">Catering Packages</a>
+          <a href="#">Equipment Rental</a>
+        </nav>
+      </div>
+
+      <div class="footer-column">
+        <h4>Locations & Contact</h4>
+        <div class="footer-contact">
+          <p><strong>Dulag Office</strong></p>
+          <p>Brgy. Combis Zone 7 </p>
+          <p>+63 938 501 5330</p>
+          <p style="margin-top: 1rem;"><strong>Email</strong></p>
+          <p><a href="mailto:euanjosh.amor@evsu.edu.ph">euanjosh.amor@evsu.edu.ph</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom" style="padding-top: 1;">
+      Copyright © 2026 <strong>Mess Catering</strong>. All rights reserved.
+    </div>
+  </footer>
+  }
+</div>

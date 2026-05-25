@@ -1,0 +1,62 @@
+<div class="booking-page">
+  <h1>Book a Tasting / Request a Quote</h1>
+  <p>Use the form below to request a tasting or booking. We'll get back to you with availability and pricing.</p>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="booking-form">
+    <label *ngIf="form.get('selectedPackage')">
+      Selected package
+      <input formControlName="selectedPackage" readonly />
+    </label>
+
+    <label>
+      Full name
+      <input formControlName="name" placeholder="Your full name" />
+    </label>
+
+    <label>
+      Email
+      <input formControlName="email" type="email" placeholder="you@example.com" />
+    </label>
+
+    <label>
+      Mobile number
+      <input formControlName="phone" type="tel" placeholder="09XXXXXXXXX" />
+    </label>
+
+    <div class="row">
+      <label>
+        Event date
+        <input formControlName="date" type="date" />
+      </label>
+
+      <label>
+        Preferred time
+        <input formControlName="time" type="time" />
+      </label>
+    </div>
+
+    <div class="row">
+      <label>
+        Number of guests
+        <input formControlName="pax" type="number" min="1" />
+      </label>
+
+      <label>
+        Occasion
+        <input formControlName="occasion" placeholder="Wedding, Birthday, etc." />
+      </label>
+    </div>
+
+    <label>
+      Venue
+      <input formControlName="venue" placeholder="Venue address" />
+    </label>
+
+    <label>
+      Message / requirements
+      <textarea formControlName="message" rows="6" placeholder="Tell us anything important"></textarea>
+    </label>
+
+    <button type="submit" [disabled]="submitting">Submit Booking</button>
+  </form>
+</div>
