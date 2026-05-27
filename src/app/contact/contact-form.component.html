@@ -1,0 +1,109 @@
+<div class="contact-shell">
+  <div class="contact-copy">
+    <p class="eyebrow">Contact Us</p>
+    <h2>Send a direct inquiry to our inbox</h2>
+    <p class="lead">
+      Use this form for event questions, promotional requests, and service inquiries. Your message will be
+      sent straight to the admin email through secure Gmail SMTP.
+    </p>
+
+    <ul class="trust-list" aria-label="Contact form benefits">
+      <li>Inquire directly</li>
+      <li>Get a response within 24 hours</li>
+      <li>Secure and private communication</li>
+    </ul>
+  </div>
+
+  <form class="contact-card" [formGroup]="contactForm" (ngSubmit)="submit()" novalidate>
+    <div class="field-grid">
+      <label class="field">
+        <span>Full Name</span>
+        <input type="text" formControlName="fullName" autocomplete="name" placeholder="Your full name" />
+        @if (hasError('fullName', 'required')) {
+          <small class="field-error">Full name is required.</small>
+        }
+        @if (hasError('fullName', 'minlength')) {
+          <small class="field-error">Please enter at least 2 characters.</small>
+        }
+      </label>
+
+      <label class="field">
+        <span>Email</span>
+        <input type="email" formControlName="email" autocomplete="email" placeholder="you@example.com" />
+        @if (hasError('email', 'required')) {
+          <small class="field-error">Email is required.</small>
+        }
+        @if (hasError('email', 'email')) {
+          <small class="field-error">Enter a valid email address.</small>
+        }
+      </label>
+
+      <label class="field">
+        <span>Mobile Number</span>
+        <input type="tel" formControlName="mobileNumber" autocomplete="tel" placeholder="09XXXXXXXXX" />
+        @if (hasError('mobileNumber', 'required')) {
+          <small class="field-error">Mobile number is required.</small>
+        }
+        @if (hasError('mobileNumber', 'pattern')) {
+          <small class="field-error">Enter a valid phone number.</small>
+        }
+      </label>
+
+      <label class="field">
+        <span>Event Date</span>
+        <input type="date" formControlName="date" />
+        <!-- @if (hasError('date', 'required')) {
+          <small class="field-error">Date is required.</small>
+        } -->
+      </label>
+
+      <label class="field field--full">
+        <span>Subject</span>
+        <input type="text" formControlName="subject" placeholder="What would you like to ask about?" />
+        @if (hasError('subject', 'required')) {
+          <small class="field-error">Subject is required.</small>
+        }
+        @if (hasError('subject', 'minlength')) {
+          <small class="field-error">Subject should be at least 3 characters.</small>
+        }
+      </label>
+
+      <label class="field field--full">
+        <span>Message</span>
+        <textarea
+          formControlName="message"
+          rows="7"
+          placeholder="Tell us about your event, preferred date, guest count, and any details we should know"
+        ></textarea>
+        <small class="character-note">Minimum length: {{ 20 }} characters. {{ remainingCharacters() }} more to go.</small>
+        @if (hasError('message', 'required')) {
+          <small class="field-error">Message is required.</small>
+        }
+        @if (hasError('message', 'minlength')) {
+          <small class="field-error">Please write a more detailed message.</small>
+        }
+      </label>
+
+      <label class="honeypot" aria-hidden="true">
+        <span>Website</span>
+        <input type="text" formControlName="website" tabindex="-1" autocomplete="off" />
+      </label>
+    </div>
+
+    @if (errorMessage()) {
+      <p class="status status--error" role="alert">{{ errorMessage() }}</p>
+    }
+
+    @if (successMessage()) {
+      <p class="status status--success" role="status">{{ successMessage() }}</p>
+    }
+
+    <button type="submit" class="submit-button" [disabled]="isSubmitting()">
+      @if (isSubmitting()) {
+        Sending message...
+      } @else {
+        Send Message
+      }
+    </button>
+  </form>
+</div>

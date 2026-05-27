@@ -54,6 +54,18 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
+## Booking email setup
+
+The booking form sends mail through the SSR server. To enable delivery, configure one of these options on the server:
+
+- `BOOKING_SMTP_URL`
+- or `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, and `SMTP_PASS`
+
+Optional values:
+
+- `BOOKING_RECIPIENT_EMAIL` to change the inbox that receives booking requests
+- `BOOKING_FROM_EMAIL` to set the sender address shown in the message
+
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

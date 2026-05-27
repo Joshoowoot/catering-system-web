@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { Component, signal, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 import { RouterLink, RouterOutlet, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ContactFormComponent } from './contact/contact-form.component';
 
 interface CateringPackage {
   id: number;
@@ -38,8 +38,8 @@ interface Location {
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, MatButtonModule, MatCardModule, MatChipsModule, MatToolbarModule, RouterLink, RouterOutlet],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [MatButtonModule, MatCardModule, MatChipsModule, MatToolbarModule, RouterLink, RouterOutlet, ContactFormComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -158,7 +158,17 @@ export class App {
     }
   ];
 
-  scrollToSection(sectionId: string): void {
+  sectionHref(sectionId: string): string {
+    return this.isBookingRoute() ? `/#${sectionId}` : `#${sectionId}`;
+  }
+
+  scrollToSection(sectionId: string, event?: Event): void {
+    if (this.isBookingRoute()) {
+      return;
+    }
+
+    event?.preventDefault();
+
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });

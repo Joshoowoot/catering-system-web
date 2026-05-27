@@ -1,13 +1,13 @@
 <div class="page-shell">
   <mat-toolbar class="site-nav" role="navigation">
-    <a class="brand" href="#home" aria-label="Mess Catering home">
+    <a class="brand" [href]="sectionHref('home')" aria-label="Mess Catering home" (click)="scrollToSection('home', $event)">
       <span class="brand-mark">MSC</span>
       <span class="brand-text">{{ title() }}</span>
     </a>
 
     <nav class="nav-links" aria-label="Primary navigation">
       @for (link of navLinks; track link.section) {
-        <a [href]="'#' + link.section" (click)="scrollToSection(link.section)">
+        <a [href]="sectionHref(link.section)" (click)="scrollToSection(link.section, $event)">
           {{ link.label }}
         </a>
       }
@@ -27,10 +27,10 @@
           equipment needs.
         </p>
         <div class="hero-actions">
-          <a mat-raised-button class="primary-action" href="#packages" (click)="scrollToSection('packages')">
+          <a mat-raised-button class="primary-action" href="#packages" (click)="scrollToSection('packages', $event)">
             Browse Packages
           </a>
-          <a mat-stroked-button class="secondary-action" href="#about" (click)="scrollToSection('about')">
+          <a mat-stroked-button class="secondary-action" href="#about" (click)="scrollToSection('about', $event)">
             Learn More
           </a>
         </div>
@@ -163,52 +163,8 @@
   <router-outlet></router-outlet>
 
   @if (!isBookingRoute()) {
-  <section id="contact" class="booking-section">
-    <div class="booking-form-container">
-      <form class="contact-form">
-        <input type="text" placeholder="Name" required />
-        <div class="form-row">
-          <input type="email" placeholder="Email" required />
-          <input type="tel" placeholder="Mobile Number" required />
-        </div>
-        <div class="form-row">
-          <input type="date" placeholder="Date of Event" required />
-          <input type="number" placeholder="Number of Pax" required />
-        </div>
-        <input type="text" placeholder="What is the Occasion?" />
-        <input type="text" placeholder="Venue of the Event" />
-        <textarea placeholder="Message" rows="6"></textarea>
-        <button type="submit" class="submit-btn">Submit</button>
-      </form>
-
-      <div class="contact-info">
-        <div class="contact-header">
-          <h2 class="eyebrow">Contact Us</h2>
-          <h2>Let's Create Memorable Moments Together</h2>
-          <p class="contact-intro">
-            Reach out to Mess Catering today! Known for our catering services, we are ready to become
-            a part of your event whether it be a debut or milestone celebration.
-          </p>
-        </div>
-
-        <div class="locations-list">
-          @for (location of locations; track location.city) {
-            <div class="location-item">
-              <h3>{{ location.city }}</h3>
-              <p class="location-address">{{ location.address }}</p>
-              <div class="location-phones">
-                @for (phone of location.phone; track phone) {
-                  <p class="phone-item">
-                    <span class="phone-icon">☎</span>
-                    {{ phone }}
-                  </p>
-                }
-              </div>
-            </div>
-          }
-        </div>
-      </div>
-    </div>
+  <section id="contact" class="section-block contact-section">
+    <app-contact-form />
   </section>
 
   <footer class="site-footer">
@@ -218,7 +174,7 @@
         <h4>Quick Links</h4>
         <nav class="footer-links">
           @for (link of navLinks; track link.section) {
-            <a [href]="'#' + link.section" (click)="scrollToSection(link.section)">{{ link.label }}</a>
+            <a [href]="sectionHref(link.section)" (click)="scrollToSection(link.section, $event)">{{ link.label }}</a>
           }
         </nav>
       </div>

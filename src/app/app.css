@@ -722,6 +722,27 @@ h3 {
   transform: translateY(0);
 }
 
+.submit-btn:disabled {
+  opacity: 0.75;
+  cursor: wait;
+  transform: none;
+  box-shadow: 0 8px 20px rgba(90, 22, 45, 0.12);
+}
+
+.form-feedback {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+}
+
+.form-feedback--error {
+  color: #b42318;
+}
+
+.form-feedback--success {
+  color: #0f7a3a;
+}
+
 .contact-info {
   display: flex;
   flex-direction: column;

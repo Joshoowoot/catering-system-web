@@ -12,16 +12,16 @@ import { RouterLink } from '@angular/router';
 
       <div class="section-block thank-you-section">
         <div class="section-heading thank-you-heading">
-          <p class="eyebrow">Reservation Complete</p>
-          <h2 id="thank-you-title">Your booking request is in our queue</h2>
+          <p class="eyebrow">Email Inquiry Sent</p>
+          <h2 id="thank-you-title">Your booking details have been sent to our team</h2>
           <p class="package-copy">
-            We appreciate your reservation. Our team will review the details and reach out shortly to confirm availability, pricing, and final arrangements.
+            Your inquiry was delivered as a clean email summary, so our team can review the booking details you entered.
           </p>
         </div>
 
         <div class="thank-you-grid">
           <article class="thank-you-card confirmation-card">
-            <div class="confirmation-badge">Received</div>
+            <div class="confirmation-badge">Email Sent</div>
             <h3>Booking Summary</h3>
 
             <dl class="summary-list" *ngIf="booking; else noBooking">
@@ -45,7 +45,7 @@ import { RouterLink } from '@angular/router';
 
             <ng-template #noBooking>
               <p class="package-copy compact-copy">
-                Your booking details were not available on this page, but the reservation was submitted successfully.
+                Your booking details were not available on this page, but the email inquiry flow is ready to use.
               </p>
             </ng-template>
           </article>
