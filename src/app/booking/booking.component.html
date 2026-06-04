@@ -2,92 +2,101 @@
   <div class="booking-intro">
     <p class="eyebrow">Booking Inquiry</p>
     <h1>Send a booking inquiry</h1>
+    <p class="lead">
+      Share your event details and we will confirm availability, package options, and next steps.
+    </p>
   </div>
 
-  <form [formGroup]="form" (ngSubmit)="submit()" class="booking-form">
-    <label *ngIf="hasSelectedPackage()">
-      Selected package
+  <form [formGroup]="form" (ngSubmit)="submit()" class="booking-form" novalidate>
+    <label class="field field--full selected-package" *ngIf="hasSelectedPackage()">
+      <span>Selected package</span>
       <input formControlName="selectedPackage" readonly />
     </label>
 
-    <label>
-      Full name
+    <label class="field">
+      <span>Full name <b>Required</b></span>
       <input formControlName="name" placeholder="Your full name" />
       <small class="field-error" *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
         Please enter your full name.
       </small>
     </label>
 
-    <label>
-      Email
+    <label class="field">
+      <span>Email <b>Required</b></span>
       <input formControlName="email" type="email" placeholder="you@example.com" />
       <small class="field-error" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
         Please enter a valid email address.
       </small>
     </label>
 
-    <label>
-      Mobile number
+    <label class="field">
+      <span>Mobile number <b>Required</b></span>
       <input formControlName="phone" type="tel" placeholder="09XXXXXXXXX" />
       <small class="field-error" *ngIf="form.get('phone')?.touched && form.get('phone')?.invalid">
         Please enter a valid mobile number.
       </small>
     </label>
 
-    <div class="row">
-      <label>
-        Event date
-        <input formControlName="date" type="date" />
-        <small class="field-error" *ngIf="form.get('date')?.touched && form.get('date')?.invalid">
-          Please choose an event date.
-        </small>
-      </label>
+    <label class="field">
+      <span>Event date <b>Required</b></span>
+      <input formControlName="date" type="date" />
+      <small class="field-error" *ngIf="form.get('date')?.touched && form.get('date')?.invalid">
+        Please choose an event date.
+      </small>
+    </label>
 
-      <label>
-        Preferred time
-        <input formControlName="time" type="time" />
-      </label>
-    </div>
+    <label class="field">
+      <span>Preferred time</span>
+      <input formControlName="time" type="time" />
+    </label>
 
-    <div class="row">
-      <label>
-        Number of guests
-        <input formControlName="pax" type="number" min="1" />
-        <small class="field-error" *ngIf="form.get('pax')?.touched && form.get('pax')?.invalid">
-          Please enter at least 1 guest.
-        </small>
-      </label>
+    <label class="field">
+      <span>Number of guests <b>Required</b></span>
+      <input formControlName="pax" type="number" min="1" />
+      <small class="field-error" *ngIf="form.get('pax')?.touched && form.get('pax')?.invalid">
+        Please enter at least 1 guest.
+      </small>
+    </label>
 
-      <label>
-        Occasion
-        <input formControlName="occasion" placeholder="Wedding, Birthday, etc." />
-      </label>
-    </div>
+    <label class="field">
+      <span>Occasion</span>
+      <input formControlName="occasion" placeholder="Wedding, birthday, corporate event" />
+    </label>
 
-    <label>
-      Venue
+    <label class="field field--full">
+      <span>Venue</span>
       <input formControlName="venue" placeholder="Venue address" />
     </label>
 
-    <label>
-      Message / requirements
-      <textarea formControlName="message" rows="6" placeholder="Tell us anything important"></textarea>
+    <label class="field field--full">
+      <span>Message / requirements <b>Required</b></span>
+      <textarea
+        formControlName="message"
+        rows="7"
+        placeholder="Tell us about your menu preferences, setup needs, timing, and other event details"
+      ></textarea>
+      <small class="field-note">Minimum length: 20 characters.</small>
       <small class="field-error" *ngIf="form.get('message')?.touched && form.get('message')?.invalid">
         Please write at least 20 characters.
       </small>
     </label>
 
     <label class="honeypot" aria-hidden="true">
-      <span style="display:none">Website</span>
-      <input formControlName="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" />
+      <span>Website</span>
+      <input formControlName="website" tabindex="-1" autocomplete="off" />
     </label>
 
-    <p class="form-feedback form-feedback--error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    <p class="status status--error field--full" *ngIf="errorMessage" role="alert">
+      {{ errorMessage }}
+    </p>
 
-    <p class="form-feedback form-feedback--loading" *ngIf="submitting" aria-live="polite">
+    <p class="status status--loading field--full" *ngIf="submitting" aria-live="polite">
       Sending your booking email. Please keep this page open.
     </p>
 
-    <button type="submit" [disabled]="submitting">{{ submitting ? 'Sending...' : 'Send Booking Email' }}</button>
+    <button type="submit" class="submit-button field--full" [disabled]="submitting">
+      <span class="button-spinner" *ngIf="submitting" aria-hidden="true"></span>
+      {{ submitting ? 'Sending booking...' : 'Send Booking Email' }}
+    </button>
   </form>
 </div>

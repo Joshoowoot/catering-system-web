@@ -23,6 +23,15 @@ interface Equipment {
   icon: string;
 }
 
+interface FoodItem {
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  pax: string;
+  image: string;
+}
+
 interface Testimonial {
   id: number;
   name: string;
@@ -103,6 +112,58 @@ export class App {
       description: 'A polished setup with premium service, styling, and full table presentation.',
       price: 'PHP 58,000',
       inclusions: ['Plated dinner for 150 pax', 'Full table setup', 'Premium cutlery', 'Centerpieces']
+    }
+  ];
+
+  protected readonly menuFoods: FoodItem[] = [
+    {
+      id: 1,
+      name: 'Pork Menudo',
+      description: 'Classic Filipino pork stew with potatoes and bell peppers',
+      price: '₱1,300',
+      pax: '10 persons · Full tray',
+      image: '/Menudo.jpg'
+    },
+    {
+      id: 2,
+      name: 'Chicken Adobo',
+      description: 'Classic Filipino dish of chicken simmered in soy sauce, vinegar, garlic, and spices.',
+      price: '₱1,200',
+      pax: '10 persons · Full tray',
+      image: '/Adobo.jpg'
+    },
+    {
+      id: 3,
+      name: 'Beef Caldereta',
+      description: 'Tender beef cooked in a rich tomato sauce with vegetables and cheese.',
+      price: '₱1,800',
+      pax: '10 persons · Full tray',
+      image: '/caldereta.jpg'
+    },
+    {
+      id: 4,
+      name: 'Chicken Curry',
+      description: 'Chicken cooked in creamy curry sauce with potatoes and carrots.',
+      price: '₱1,400',
+      pax: '10 persons · Full tray',
+      image: '/curyy.jpg'
+    },
+    {
+      id: 5,
+      name: 'Sweet & Sour Fish',
+      description: 'Crispy fish fillet topped with sweet and tangy vegetable sauce.',
+      price: '₱1,500',
+      pax: '10 persons · Full tray',
+      image: '/Sweet.jpg'
+    }
+    ,
+    {
+      id: 6,
+      name: 'Lumpiang Shanghai',
+      description: 'Crispy spring rolls filled with seasoned ground pork and vegetables.',
+      price: '₱900',
+      pax: '10 persons · Full tray',
+      image: '/longanisa-lumpiang-shanghai.jpg'
     }
   ];
 
